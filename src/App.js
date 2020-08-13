@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react"
+import "./App.scss"
+import { StartStopButton } from "./components/start-stop-button/start-stop-button.component"
 
-function App() {
+export function App() {
+  const [state, setState] = useState({ global: { running: false } })
+
+  function toggleStartStop() {
+    setState((prevState) => ({
+      global: {
+        ...prevState.global,
+        running: prevState.global.running === true ? false : true,
+      },
+    }))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <StartStopButton
+        action={toggleStartStop}
+        running={state.global.running}
+      />
     </div>
-  );
+  )
 }
-
-export default App;
